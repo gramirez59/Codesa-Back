@@ -35,7 +35,7 @@ public class UserServiceImpl implements IUserService {
 		if(nombre == null || nombre.isEmpty() || nombre.isBlank())
 			users = (List<Usuario>) userDao.findAll();
 		else
-			users = (List<Usuario>) userDao.findAllByNombre(nombre);
+			users = (List<Usuario>) userDao.findAllByNombre(nombre.toUpperCase());
 		Comparator<UserDto> orderById = Comparator
                 .comparing(UserDto::getId);
 		usersDto = users.stream().map(user -> {
@@ -105,5 +105,10 @@ public class UserServiceImpl implements IUserService {
 		}
 		else
 			return EnumResponseCode.ERROR_ELIMINAR_USUARIO.getValor();
+	}
+
+	@Override
+	public List<Rol> GetRols() {
+		return (List<Rol>) rolDao.findAll();
 	}
 }

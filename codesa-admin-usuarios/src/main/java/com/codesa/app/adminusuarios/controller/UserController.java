@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.codesa.app.adminusuarios.bl.service.IUserService;
 import com.codesa.app.adminusuarios.dal.dto.UserDto;
+import com.codesa.app.adminusuarios.dal.entity.Rol;
 import com.codesa.app.adminusuarios.enums.EnumResponseCode;
 import com.codesa.app.adminusuarios.exception.MicroServiceException;
 import java.util.ArrayList;
@@ -134,6 +135,22 @@ public class UserController {
 		catch (Exception e) {
 			Log.error("UserController:DeleteUser" + e.getStackTrace());
 			responseEntity = new ResponseEntity<Integer>(EnumResponseCode.ERROR_ELIMINAR_USUARIO.getValor(), HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new MicroServiceException(e);
+		}
+		return responseEntity;
+	}
+	
+	@RequestMapping(value =  {"/GetRols"}, method = RequestMethod.GET)
+	public ResponseEntity<List<Rol>>GetRols() throws MicroServiceException {
+		ResponseEntity<List<Rol>> responseEntity = null;
+		List<Rol> rols = null;
+		try {
+			rols = userService.GetRols();
+			responseEntity = new ResponseEntity<List<Rol>>(rols, HttpStatus.OK);
+		}
+		catch (Exception e) {
+			Log.error("UserController:GetRols" + e.getStackTrace());
+			responseEntity = new ResponseEntity<List<Rol>>(new ArrayList<Rol>(), HttpStatus.INTERNAL_SERVER_ERROR);
 			throw new MicroServiceException(e);
 		}
 		return responseEntity;

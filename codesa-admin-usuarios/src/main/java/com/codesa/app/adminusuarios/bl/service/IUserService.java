@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.codesa.app.adminusuarios.dal.dto.UserDto;
+import com.codesa.app.adminusuarios.dal.entity.Rol;
 
 /**
  * @author Gustavo Ramirez Aristizabal
@@ -57,4 +58,10 @@ public interface IUserService {
 	 * @return
 	 */
 	Integer DeleteUser(Long id);
+	
+	/**
+	 * Retorna todos los Roles
+	 * @return
+	 */
+	List<Rol>GetRols();
 }
